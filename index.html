@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang='en'>
+<head>
+  <meta charset="UTF-8">
+</head>
+
+<style>
+  body {
+    font-family: monospace;
+    background: black;
+    color: white;
+    text-align: center;
+  }
+  .the-price {
+    font-size: 24px;
+  }
+</style>
+
+<body style="-webkit-app-region: drag">
+  <h3>Current Share Price (GOOG):</h3>
+  <div class="the-price" id="price"> $100 </div>
+  <script>
+    var request = require('request')
+    request("https://www.google.com/finance/info?client=ig&q=goog", function(error, response, body) {
+      body = body.slice(3);
+      body = JSON.parse(body);
+      console.log(body);
+      newPrice(body);
+    });
+    function newPrice(arr) {
+      currentPrice = arr[0]["l"];
+      document.getElementById("price").innerHTML = currentPrice;
+    }
+  </script>
+</body>
+</html>
